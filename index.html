@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Azita Ebadi English Academy</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:sans-serif;background:#f9fafb;color:#111827;transition:all .3s}
+body.dark{background:#111827;color:#f9fafb}
+.header{background:#fff;padding:16px 24px;box-shadow:0 2px 4px rgba(0,0,0,.1);display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:10}
+body.dark .header{background:#1f2937}
+.logo{font-size:20px;font-weight:bold;color:#3b82f6}
+.nav a{color:#374151;text-decoration:none;margin-left:16px}
+body.dark .nav a{color:#d1d5db}
+.nav a:hover{color:#3b82f6}
+.btn{background:#3b82f6;color:#fff;padding:8px 16px;border:none;border-radius:8px;cursor:pointer;font-size:14px}
+.btn:hover{background:#2563eb}
+.toggle{background:none;border:2px solid #d1d5db;border-radius:8px;padding:8px;cursor:pointer;font-size:18px}
+main{max-width:900px;margin:40px auto;padding:0 20px}
+.hero{text-align:center;padding:60px 0}
+.hero h1{font-size:36px;margin-bottom:16px;text-transform:uppercase}
+.hero h1 span{color:#3b82f6}
+.hero p{font-size:18px;color:#6b7280;margin-bottom:24px}
+body.dark .hero p{color:#9ca3af}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:24px;margin-top:40px}
+.card{background:#fff;padding:24px;border-radius:12px;box-shadow:0 4px 6px rgba(0,0,0,.1);text-align:center}
+body.dark .card{background:#1f2937}
+.card h3{font-size:18px;margin:12px 0 8px}
+.card p{color:#6b7280;font-size:14px}
+body.dark .card p{color:#9ca3af}
+.footer{background:#1f2937;color:#d1d5db;padding:32px;margin-top:60px;text-align:center}
+.form-page{max-width:600px;margin:40px auto}
+.form-page h2{font-size:24px;margin-bottom:24px}
+.form-group{margin-bottom:16px}
+.form-group label{display:block;margin-bottom:6px;font-size:14px;font-weight:500}
+.form-group input,.form-group select,.form-group textarea{width:100%;padding:10px 14px;border:1px solid #d1d5db;border-radius:8px;font-size:14px;background:#fff;color:#111827}
+body.dark .form-group input,body.dark .form-group select,body.dark .form-group textarea{background:#374151;border-color:#4b5563;color:#f9fafb}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{outline:none;border-color:#3b82f6;box-shadow:0 0 0 3px rgba(59,130,246,.2)}
+.class-options{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.class-option{padding:16px;border:2px solid #d1d5db;border-radius:8px;cursor:pointer;text-align:center}
+.class-option.selected{border-color:#3b82f6;background:#eff6ff}
+body.dark .class-option{border-color:#4b5563}
+body.dark .class-option.selected{background:#1e3a5f}
+.class-option .name{font-weight:bold;font-size:16px}
+.class-option .price{color:#6b7280;font-size:13px;margin-top:4px}
+body.dark .class-option .price{color:#9ca3af}
+.page{display:none}.page.active{display:block}
+.success{text-align:center;padding:60px 0}
+.success .icon{font-size:64px;color:#22c55e}
+.success h2{margin:16px 0 8px;color:#22c55e}
+.admin-section{margin-bottom:32px;padding:20px;background:#f3f4f6;border-radius:12px}
+body.dark .admin-section{background:#374151}
+.admin-section h3{margin-bottom:12px;color:#3b82f6}
+.level-item{display:flex;justify-content:space-between;align-items:center;padding:12px;background:#fff;border-radius:8px;margin-bottom:8px;box-shadow:0 1px 3px rgba(0,0,0,.1)}
+body.dark .level-item{background:#1f2937}
+.level-item .info{flex:1}
+.level-item .info h4{font-size:16px}
+.level-item .info p{font-size:13px;color:#6b7280}
+body.dark .level-item .info p{color:#9ca3af}
+.level-item .actions button{margin-left:8px;padding:4px 12px;border:none;border-radius:6px;cursor:pointer;font-size:13px}
+.btn-edit{background:#f59e0b;color:#fff}
+.btn-delete{background:#ef4444;color:#fff}
+.btn-edit:hover{background:#d97706}
+.btn-delete:hover{background:#dc2626}
+.btn-add{background:#22c55e;color:#fff;margin-top:8px}
+.btn-add:hover{background:#16a34a}
+.btn-save{background:#3b82f6;color:#fff;padding:10px 24px;font-size:15px}
+.btn-save:hover{background:#2563eb}
+.modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.5);z-index:100;justify-content:center;align-items:center}
+.modal.show{display:flex}
+.modal-content{background:#fff;padding:24px;border-radius:12px;width:90%;max-width:400px}
+body.dark .modal-content{background:#1f2937}
+.modal-content h3{margin-bottom:16px}
+.modal-content .form-group{margin-bottom:12px}
+.modal-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:16px}
+.btn-cancel{background:#6b7280;color:#fff}
+.btn-cancel:hover{background:#4b5563}
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="logo">Azita Ebadi English Academy</div>
+  <div class="nav">
+    <a href="#" onclick="showPage('home')">خانه</a>
+    <a href="#" onclick="showPage('about')">درباره ما</a>
+    <a href="#" onclick="showPage('courses')">دوره‌ها</a>
+    <a href="#" onclick="showPage('register')">ثبت‌نام</a>
+    <a href="#" onclick="showPage('contact')">تماس</a>
+    <a href="#" onclick="showPage('admin')" style="color:#ef4444">پنل مدیریت</a>
+    <button class="toggle" onclick="toggleLang()" id="langBtn">EN</button>
+    <button class="toggle" onclick="toggleDark()">🌙</button>
+  </div>
+</div>
+
+<div id="home" class="page active">
+  <main>
+    <div class="hero">
+      <h1 id="tagline-fa">یک زبان جدید، یک زندگی جدید است</h1>
+      <h1 id="tagline-en" style="display:none">A NEW LANGUAGE IS A NEW LIFE</h1>
+      <p id="home-subtitle">با ۱۵ سال تجربه تدریس و مدیریت آموزشگاه، به شما کمک می‌کنم به سطح دلخواهتان برسید</p>
+      <button class="btn" onclick="showPage('register')" style="font-size:16px;padding:12px 32px;margin:8px">ثبت‌نام در کلاس‌ها</button>
+      <button class="btn" style="background:transparent;color:#3b82f6;border:2px solid #3b82f6;font-size:16px;padding:12px 32px;margin:8px" onclick="showPage('courses')">مشاهده دوره‌ها</button>
+    </div>
+    <div class="cards">
+      <div class="card"><div style="font-size:40px">🎓</div><h3>۱۵+ سال تجربه</h3><p>مدیر و مدرس آموزشگاه زبان در تهران</p></div>
+      <div class="card"><div style="font-size:40px">🌍</div><h3>آنلاین و انعطاف‌پذیر</h3><p>کلاس‌های خصوصی و گروهی در زمان دلخواه</p></div>
+      <div class="card"><div style="font-size:40px">🎯</div><h3>تمرکز بر چالش‌های فارسی‌زبانان</h3><p>رفع مشکلات رایج در تلفظ و ساختار جملات</p></div>
+    </div>
+  </main>
+</div>
+
+<div id="about" class="page">
+  <main>
+    <div class="card" style="padding:32px;text-align:right">
+      <h2 style="margin-bottom:16px">درباره من</h2>
+      <p id="about-p1" style="margin-bottom:12px">مدرس و مدیر آموزشگاه زبان با بیش از ۱۵ سال تجربه در تهران</p>
+      <p id="about-p2" style="margin-bottom:12px">من فارغ‌التحصیل رشته مترجمی زبان انگلیسی هستم و در طول ۱۵ سال گذشته، مدیریت و تدریس در آموزشگاه‌های زبان معتبر تهران را بر عهده داشته‌ام.</p>
+      <p id="about-p3" style="margin-bottom:12px">تجربه تدریس در تمامی سطوح از مبتدی تا پیشرفته و آشنایی عمیق با چالش‌های زبان‌آموزان فارسی‌زبان، این امکان را فراهم کرده تا روش‌های مؤثر و متناسب با نیازهای شما ارائه دهم.</p>
+      <p id="about-p4">حالا با راه‌اندازی کلاس‌های آنلاین، این فرصت را دارم تا به شما کمک کنم بدون نیاز به تردد در ترافیک تهران، در خانه و در زمان دلخواهتان، زبان انگلیسی را یاد بگیرید.</p>
+    </div>
+  </main>
+</div>
+
+<div id="courses" class="page">
+  <main>
+    <h2 style="text-align:center;margin-bottom:24px">سطوح آموزشی</h2>
+    <div id="levels-container" class="cards"></div>
+  </main>
+</div>
+
+<div id="register" class="page">
+  <main>
+    <div class="form-page">
+      <h2>فرم ثبت‌نام</h2>
+      <div class="form-group"><label>نام کامل *</label><input type="text" id="reg-name" placeholder="نام و نام خانوادگی"></div>
+      <div class="form-group"><label>سن *</label><input type="number" id="reg-age" min="12" max="80" placeholder="سن"></div>
+      <div class="form-group"><label>شماره موبایل *</label><input type="tel" id="reg-phone" placeholder="09123456789" dir="ltr"></div>
+      <div class="form-group"><label>ایمیل *</label><input type="email" id="reg-email" placeholder="email@example.com" dir="ltr"></div>
+      <div class="form-group"><label>آیدی تلگرام (اختیاری)</label><input type="text" id="reg-telegram" placeholder="@username" dir="ltr"></div>
+      <div class="form-group"><label>سطح فعلی انگلیسی *</label><select id="reg-level"><option value="">انتخاب کنید</option></select></div>
+      <div class="form-group"><label>هدف شما از یادگیری</label><textarea id="reg-goals" rows="3" placeholder="مثال: آمادگی برای آیلتس، مکالمه روان"></textarea></div>
+      <div class="form-group">
+        <label>نوع کلاس *</label>
+        <div class="class-options">
+          <div class="class-option" onclick="selectClass(this,'private')"><div class="name">خصوصی</div><div class="price">۵۰۰,۰۰۰ تومان</div></div>
+          <div class="class-option" onclick="selectClass(this,'group')"><div class="name">گروهی</div><div class="price">۲۰۰,۰۰۰ تومان</div></div>
+        </div>
+      </div>
+      <button class="btn" style="width:100%;padding:14px;font-size:16px;margin-top:16px" onclick="submitForm()">ثبت‌نام</button>
+    </div>
+    <div id="reg-success" style="display:none">
+      <div class="success">
+        <div class="icon">✅</div>
+        <h2>ثبت‌نام با موفقیت انجام شد!</h2>
+        <p style="color:#6b7280;margin:12px 0">اطلاعات شما ثبت شد. به زودی با شما تماس خواهیم گرفت.</p>
+        <button class="btn" onclick="resetForm()">ثبت‌نام جدید</button>
+      </div>
+    </div>
+  </main>
+</div>
+
+<div id="contact" class="page">
+  <main>
+    <div class="form-page">
+      <h2>تماس با ما</h2>
+      <div class="form-group"><label>نام</label><input type="text" placeholder="نام شما"></div>
+      <div class="form-group"><label>ایمیل</label><input type="email" placeholder="email@example.com" dir="ltr"></div>
+      <div class="form-group"><label>پیام</label><textarea rows="5" placeholder="پیام خود را بنویسید"></textarea></div>
+      <button class="btn" style="width:100%;padding:14px;font-size:16px" onclick="alert('پیام شما ارسال شد. به زودی با شما تماس خواهیم گرفت.')">ارسال پیام</button>
+    </div>
+  </main>
+</div>
+
+<div id="admin" class="page">
+  <main>
+    <div id="admin-login" class="form-page">
+      <h2>ورود به پنل مدیریت</h2>
+      <p style="color:#6b7280;margin-bottom:16px;font-size:14px">رمز پیش‌فرض: 09123456789</p>
+      <div class="form-group"><label>رمز عبور</label><input type="password" id="admin-pass" placeholder="رمز عبور را وارد کنید"></div>
+      <button class="btn" style="width:100%;padding:14px;font-size:16px" onclick="adminLogin()">ورود</button>
+    </div>
+    <div id="admin-panel" style="display:none">
+      <h2 style="margin-bottom:24px">پنل مدیریت</h2>
+
+      <div class="admin-section">
+        <h3>ویرایش رزومه (درباره من)</h3>
+        <div class="form-group"><label>پاراگراف ۱</label><textarea id="edit-about1" rows="2"></textarea></div>
+        <div class="form-group"><label>پاراگراف ۲</label><textarea id="edit-about2" rows="2"></textarea></div>
+        <div class="form-group"><label>پاراگراف ۳</label><textarea id="edit-about3" rows="2"></textarea></div>
+        <div class="form-group"><label>پاراگراف ۴</label><textarea id="edit-about4" rows="2"></textarea></div>
+        <button class="btn btn-save" onclick="saveAbout()">ذخیره رزومه</button>
+      </div>
+
+      <div class="admin-section">
+        <h3>مدیریت سطوح آموزشی</h3>
+        <div id="admin-levels"></div>
+        <button class="btn btn-add" onclick="openLevelModal()">+ افزودن سطح جدید</button>
+      </div>
+
+      <div class="admin-section">
+        <h3>ویرایش زیرعنوان صفحه اصلی</h3>
+        <div class="form-group"><label>متن زیرعنوان</label><textarea id="edit-home-subtitle" rows="2"></textarea></div>
+        <button class="btn btn-save" onclick="saveSubtitle()">ذخیره</button>
+      </div>
+
+      <div class="admin-section">
+        <h3>تغییر رمز عبور</h3>
+        <div class="form-group"><label>رمز جدید</label><input type="password" id="new-pass" placeholder="رمز جدید را وارد کنید"></div>
+        <button class="btn btn-save" onclick="changePassword()">ذخیره رمز</button>
+      </div>
+    </div>
+  </main>
+</div>
+
+<div id="level-modal" class="modal">
+  <div class="modal-content">
+    <h3 id="modal-title">افزودن سطح</h3>
+    <div class="form-group"><label>کد سطح</label><input type="text" id="modal-code" placeholder="مثال: A1"></div>
+    <div class="form-group"><label>نام فارسی</label><input type="text" id="modal-name" placeholder="مثال: مبتدی"></div>
+    <div class="form-group"><label>توضیحات</label><textarea id="modal-desc" rows="2" placeholder="توضیحات سطح"></textarea></div>
+    <div class="modal-actions">
+      <button class="btn btn-cancel" onclick="closeLevelModal()">لغو</button>
+      <button class="btn btn-save" onclick="saveLevel()">ذخیره</button>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  <p style="font-size:18px"><strong>Azita Ebadi English Academy</strong></p>
+  <p style="margin-top:8px;font-size:16px">یک زبان جدید، یک زندگی جدید است</p>
+  <p style="margin-top:12px;font-size:14px">ایمیل: azitaebadi2020@gmail.com</p>
+  <p style="margin-top:16px;font-size:12px">© 2026 Azita Ebadi English Academy</p>
+</div>
+
+<script>
+let selectedClass='';
+let editingLevelIndex=-1;
+
+function loadData(key,def){try{return JSON.parse(localStorage.getItem(key))||def}catch(e){return def}}
+function saveData(key,val){localStorage.setItem(key,JSON.stringify(val))}
+
+let levels=loadData('levels',[
+  {code:'A1',name:'مبتدی',desc:'شروع یادگیری زبان انگلیسی'},
+  {code:'A2',name:'ابتدایی',desc:'درک مکالمات ساده روزمره'},
+  {code:'B1',name:'متوسط',desc:'مکالمه روان در موضوعات آشنا'},
+  {code:'B2',name:'فوق متوسط',desc:'درک متون پیچیده'},
+  {code:'C1',name:'پیشرفته',desc:'تسلط نزدیک به زبان مادری'}
+]);
+
+let aboutData=loadData('aboutData',{
+  p1:'مدرس و مدیر آموزشگاه زبان با بیش از ۱۵ سال تجربه در تهران',
+  p2:'من فارغ‌التحصیل رشته مترجمی زبان انگلیسی هستم و در طول ۱۵ سال گذشته، مدیریت و تدریس در آموزشگاه‌های زبان معتبر تهران را بر عهده داشته‌ام.',
+  p3:'تجربه تدریس در تمامی سطوح از مبتدی تا پیشرفته و آشنایی عمیق با چالش‌های زبان‌آموزان فارسی‌زبان، این امکان را فراهم کرده تا روش‌های مؤثر و متناسب با نیازهای شما ارائه دهم.',
+  p4:'حالا با راه‌اندازی کلاس‌های آنلاین، این فرصت را دارم تا به شما کمک کنم بدون نیاز به تردد در ترافیک تهران، در خانه و در زمان دلخواهتان، زبان انگلیسی را یاد بگیرید.'
+});
+
+let homeSubtitle=loadData('homeSubtitle','با ۱۵ سال تجربه تدریس و مدیریت آموزشگاه، به شما کمک می‌کنم به سطح دلخواهتان برسید');
+let adminPassword=loadData('adminPassword','09123456789');
+
+function toggleDark(){document.body.classList.toggle('dark')}
+let currentLang='fa';
+function toggleLang(){
+  currentLang=currentLang==='fa'?'en':'fa';
+  document.getElementById('tagline-fa').style.display=currentLang==='fa'?'block':'none';
+  document.getElementById('tagline-en').style.display=currentLang==='en'?'block':'none';
+  document.getElementById('langBtn').textContent=currentLang==='fa'?'EN':'FA';
+  document.documentElement.lang=currentLang==='fa'?'fa':'en';
+  document.documentElement.dir=currentLang==='fa'?'rtl':'ltr';
+}
+function showPage(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0,0);
+  if(id==='courses')renderLevels();
+  if(id==='about')renderAbout();
+  if(id==='home')renderHome();
+  if(id==='admin')renderAdminLevels();
+}
+function selectClass(el,type){document.querySelectorAll('.class-option').forEach(o=>o.classList.remove('selected'));el.classList.add('selected');selectedClass=type}
+function submitForm(){
+  const n=document.getElementById('reg-name').value;
+  const a=document.getElementById('reg-age').value;
+  const p=document.getElementById('reg-phone').value;
+  const e=document.getElementById('reg-email').value;
+  const l=document.getElementById('reg-level').value;
+  if(!n||!a||!p||!e||!l||!selectedClass){alert('لطفاً تمام فیلدهای الزامی را پر کنید.');return}
+  document.querySelector('#register .form-page').style.display='none';
+  document.getElementById('reg-success').style.display='block';
+}
+function resetForm(){document.querySelector('#register .form-page').style.display='block';document.getElementById('reg-success').style.display='none';document.querySelectorAll('#register .form-page input,#register .form-page select,#register .form-page textarea').forEach(i=>i.value='');document.querySelectorAll('.class-option').forEach(o=>o.classList.remove('selected'));selectedClass=''}
+
+function renderLevels(){
+  const c=document.getElementById('levels-container');
+  c.innerHTML=levels.map(l=>'<div class="card"><div style="font-size:36px;font-weight:bold;color:#3b82f6">'+l.code+'</div><h3>'+l.name+'</h3><p>'+l.desc+'</p></div>').join('');
+  const sel=document.getElementById('reg-level');
+  sel.innerHTML='<option value="">انتخاب کنید</option>'+levels.map(l=>'<option>'+l.code+' - '+l.name+'</option>').join('');
+}
+function renderAbout(){
+  document.getElementById('about-p1').textContent=aboutData.p1;
+  document.getElementById('about-p2').textContent=aboutData.p2;
+  document.getElementById('about-p3').textContent=aboutData.p3;
+  document.getElementById('about-p4').textContent=aboutData.p4;
+}
+function renderHome(){
+  document.getElementById('home-subtitle').textContent=homeSubtitle;
+}
+function renderAdminLevels(){
+  const c=document.getElementById('admin-levels');
+  c.innerHTML=levels.map((l,i)=>'<div class="level-item"><div class="info"><h4>'+l.code+' - '+l.name+'</h4><p>'+l.desc+'</p></div><div class="actions"><button class="btn-edit" onclick="editLevel('+i+')">ویرایش</button><button class="btn-delete" onclick="deleteLevel('+i+')">حذف</button></div></div>').join('');
+}
+
+function adminLogin(){
+  const pass=document.getElementById('admin-pass').value;
+  if(pass===adminPassword){
+    document.getElementById('admin-login').style.display='none';
+    document.getElementById('admin-panel').style.display='block';
+    document.getElementById('edit-about1').value=aboutData.p1;
+    document.getElementById('edit-about2').value=aboutData.p2;
+    document.getElementById('edit-about3').value=aboutData.p3;
+    document.getElementById('edit-about4').value=aboutData.p4;
+    document.getElementById('edit-home-subtitle').value=homeSubtitle;
+    renderAdminLevels();
+  }else{
+    alert('رمز عبور اشتباه است!');
+  }
+}
+
+function saveAbout(){
+  aboutData.p1=document.getElementById('edit-about1').value;
+  aboutData.p2=document.getElementById('edit-about2').value;
+  aboutData.p3=document.getElementById('edit-about3').value;
+  aboutData.p4=document.getElementById('edit-about4').value;
+  saveData('aboutData',aboutData);
+  alert('رزومه ذخیره شد!');
+}
+
+function saveSubtitle(){
+  homeSubtitle=document.getElementById('edit-home-subtitle').value;
+  saveData('homeSubtitle',homeSubtitle);
+  alert('زیرعنوان ذخیره شد!');
+}
+
+function openLevelModal(index){
+  editingLevelIndex=index===undefined?-1:index;
+  document.getElementById('modal-title').textContent=index>=0?'ویرایش سطح':'افزودن سطح جدید';
+  if(index>=0){
+    document.getElementById('modal-code').value=levels[index].code;
+    document.getElementById('modal-name').value=levels[index].name;
+    document.getElementById('modal-desc').value=levels[index].desc;
+  }else{
+    document.getElementById('modal-code').value='';
+    document.getElementById('modal-name').value='';
+    document.getElementById('modal-desc').value='';
+  }
+  document.getElementById('level-modal').classList.add('show');
+}
+function closeLevelModal(){document.getElementById('level-modal').classList.remove('show')}
+function saveLevel(){
+  const code=document.getElementById('modal-code').value.trim();
+  const name=document.getElementById('modal-name').value.trim();
+  const desc=document.getElementById('modal-desc').value.trim();
+  if(!code||!name){alert('کد سطح و نام الزامی هستند!');return}
+  if(editingLevelIndex>=0){
+    levels[editingLevelIndex]={code,name,desc};
+  }else{
+    levels.push({code,name,desc});
+  }
+  saveData('levels',levels);
+  closeLevelModal();
+  renderAdminLevels();
+}
+function editLevel(i){openLevelModal(i)}
+function deleteLevel(i){
+  if(confirm('آیا از حذف سطح "'+levels[i].name+'" مطمئن هستید؟')){
+    levels.splice(i,1);
+    saveData('levels',levels);
+    renderAdminLevels();
+  }
+}
+function changePassword(){
+  const np=document.getElementById('new-pass').value;
+  if(!np){alert('رمز جدید را وارد کنید!');return}
+  adminPassword=np;
+  saveData('adminPassword',adminPassword);
+  alert('رمز عبور تغییر کرد!');
+  document.getElementById('new-pass').value='';
+}
+
+renderLevels();
+</script>
+</body>
+</html>
